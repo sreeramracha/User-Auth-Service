@@ -9,6 +9,7 @@ import com.project.userauthservice.service.AuthService;
 import com.project.userauthservice.service.JwtService;
 import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.JwtException;
+import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -23,7 +24,7 @@ public class AuthController {
     private final JwtService jwtService;
 
     @PostMapping("/signup")
-    public ResponseEntity<UserDto> signUp(@RequestBody AuthRequest authRequest){
+    public ResponseEntity<UserDto> signUp(@Valid @RequestBody AuthRequest authRequest){
         User user = authService.signUp(authRequest.getEmail(), authRequest.getPassword());
 
         if (user == null){
@@ -66,6 +67,11 @@ public class AuthController {
         } catch (JwtException e) {
             return new ResponseEntity<>(HttpStatus.UNAUTHORIZED);
         }
+    }
+
+    @GetMapping("hello")
+    public String hello(){
+        return "Hello World";
     }
 
 }

@@ -74,4 +74,9 @@ public class AuthController {
         return "Hello World";
     }
 
+    @GetMapping("/healthcheck")
+    public ResponseEntity<String> healthCheck(){
+        return ResponseEntity.ok("Up and running");
+    }
+
 }
